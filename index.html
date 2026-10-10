@@ -7,7 +7,7 @@
   <meta name="description" content="Krinal Soni, Software Engineer specializing in test automation. Java, Python, Selenium, Robot Framework, REST API testing and CI/CD.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,6 +15,7 @@
   <!-- ===== NAVIGATION ===== -->
   <header class="nav">
     <a href="#home" class="logo">KS<span>.</span></a>
+    <button class="bug-counter" title="Bug Hunt: find the 5 bugs hidden on this page">🐞 <b id="bugs-found">0</b>/5<span class="wide-only"> bugs fixed</span></button>
     <button class="menu-btn" aria-label="Open menu">☰</button>
     <nav>
       <a href="#about">About</a>
@@ -39,14 +40,20 @@
         <a href="#experience" class="btn btn-primary">See my experience</a>
         <a href="#contact" class="btn btn-outline">Get in touch</a>
       </div>
+
+      <!-- Live "test run" terminal -->
+      <div class="terminal" aria-label="Test run showing Krinal's profile checks passing">
+        <div class="terminal-bar"><i></i><i></i><i></i><span>krinal@portfolio: ~/tests</span></div>
+        <pre id="terminal-output"></pre>
+      </div>
     </div>
   </section>
 
   <!-- ===== ABOUT ===== -->
   <section id="about" class="section">
-    <h2 class="section-title">About <span>Me</span></h2>
+    <h2 class="section-title" data-label="about">About <span>Me</span></h2>
     <div class="about-grid">
-      <div class="avatar">KS</div>
+      <div class="avatar">KS<button class="bug" style="top:8%; right:4%" aria-label="Hidden bug">🐞</button></div>
       <div>
         <p>
           I'm a software engineer with 4+ years of experience designing and
@@ -70,7 +77,8 @@
 
   <!-- ===== SKILLS ===== -->
   <section id="skills" class="section section-alt">
-    <h2 class="section-title">My <span>Skills</span></h2>
+    <h2 class="section-title" data-label="skills">My <span>Skills</span></h2>
+    <button class="bug" style="bottom:1.5rem; left:6%" aria-label="Hidden bug">🐞</button>
     <div class="skill-groups">
       <div class="group" style="--c:var(--pink)">
         <h3>💻 Languages</h3>
@@ -101,7 +109,8 @@
 
   <!-- ===== EXPERIENCE ===== -->
   <section id="experience" class="section">
-    <h2 class="section-title">Work <span>Experience</span></h2>
+    <h2 class="section-title" data-label="experience">Work <span>Experience</span></h2>
+    <button class="bug" style="top:45%; right:5%" aria-label="Hidden bug">🐞</button>
     <div class="timeline">
       <div class="item" style="--c:var(--pink)">
         <span class="date">Mar 2025 – Jul 2026</span>
@@ -148,7 +157,8 @@
 
   <!-- ===== EDUCATION ===== -->
   <section id="education" class="section section-alt">
-    <h2 class="section-title">My <span>Education</span></h2>
+    <h2 class="section-title" data-label="education">My <span>Education</span></h2>
+    <button class="bug" style="top:3rem; left:8%" aria-label="Hidden bug">🐞</button>
     <div class="cards">
       <article class="card" style="--c1:var(--purple); --c2:var(--teal)">
         <div class="card-icon">🎓</div>
@@ -173,7 +183,7 @@
 
   <!-- ===== CONTACT ===== -->
   <section id="contact" class="section contact">
-    <h2 class="section-title">Let's <span>Connect</span></h2>
+    <h2 class="section-title" data-label="contact">Let's <span>Connect</span></h2>
     <p>Open to software engineering and test automation opportunities. I'd love to hear from you!</p>
     <a class="btn btn-primary big" href="mailto:krinalsoni03@gmail.com">✉️ krinalsoni03@gmail.com</a>
     <div class="socials">
@@ -183,6 +193,7 @@
   </section>
 
   <footer>
+    <button class="bug bug-footer" aria-label="Hidden bug">🐞</button>
     © <span id="year"></span> Krinal Soni · Kirkland, WA
   </footer>
 
@@ -197,6 +208,21 @@
     <button data-theme="lavender" title="Lavender" style="background:linear-gradient(135deg,#f7aef8,#5a189a)"></button>
     <button data-theme="neon" title="Neon" style="background:linear-gradient(135deg,#fee440,#f15bb5,#00bbf9)"></button>
     <button data-theme="royal" title="Navy &amp; Gold" style="background:linear-gradient(135deg,#d4af37,#14213d)"></button>
+  </div>
+
+  <!-- Bug Hunt hint + win message -->
+  <div class="toast" id="toast" role="status"></div>
+  <div class="win" id="win" hidden>
+    <div class="win-card">
+      <pre class="win-log">$ run bug_hunt.robot
+5 tests, 5 passed, 0 failed ✅</pre>
+      <h3>All bugs fixed! 🎉</h3>
+      <p>You've got a real QA eye. Finding and fixing bugs is exactly what I do every day.</p>
+      <div class="buttons">
+        <a href="#contact" class="btn btn-primary" id="win-contact">Let's work together</a>
+        <button class="btn btn-ghost" id="win-close">Close</button>
+      </div>
+    </div>
   </div>
 
   <script src="script.js"></script>
