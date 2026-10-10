@@ -15,7 +15,7 @@
   <!-- ===== NAVIGATION ===== -->
   <header class="nav">
     <a href="#home" class="logo">KS<span>.</span></a>
-    <button class="bug-counter" title="Bug Hunt: find the 5 bugs hidden on this page">🐞 <b id="bugs-found">0</b>/5<span class="wide-only"> bugs fixed</span></button>
+    <button class="bug-counter waiting" title="Bug Hunt: find the 5 bugs hidden on this page">🐞 <b id="bugs-found">0</b>/5<span class="wide-only"> bugs fixed</span></button>
     <button class="menu-btn" aria-label="Open menu">☰</button>
     <nav>
       <a href="#about">About</a>
@@ -45,6 +45,12 @@
       <div class="terminal" aria-label="Test run showing Krinal's profile checks passing">
         <div class="terminal-bar"><i></i><i></i><i></i><span>krinal@portfolio: ~/tests</span></div>
         <pre id="terminal-output"></pre>
+      </div>
+
+      <!-- Bug Hunt invitation -->
+      <div class="hunt-cta">
+        <button class="btn btn-hunt" id="start-hunt">🐞 Play Bug Hunt</button>
+        <p>5 bugs are hiding on this page. Find them and click to fix them!</p>
       </div>
     </div>
   </section>

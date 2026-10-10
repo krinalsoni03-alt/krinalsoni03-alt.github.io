@@ -61,7 +61,9 @@ const termLines = [
   ['test', 'Ships Through Jenkins And Docker'],
   ['test', 'Finds Bugs Before Users Do'],
   ['dim', termRule],
-  ['pass', '5 tests, 5 passed, 0 failed ✅']
+  ['pass', '5 tests, 5 passed, 0 failed ✅'],
+  ['warn', '⚠ WARN: 5 bugs escaped to production!'],
+  ['warn', '  Help me find them 🐞 Press "Play Bug Hunt" ↓']
 ];
 const termOut = document.getElementById('terminal-output');
 let termRow = 0;
@@ -76,7 +78,8 @@ function termNext() {
     line.textContent = text;
   }
   termOut.appendChild(line);
-  setTimeout(termNext, kind === 'cmd' ? 700 : 380);
+  if (termRow === termLines.length) document.querySelector('.hunt-cta').classList.add('show');
+  setTimeout(termNext, kind === 'cmd' ? 700 : kind === 'pass' ? 900 : 380);
 }
 setTimeout(termNext, 600);
 
@@ -106,6 +109,7 @@ bugs.forEach(bug => bug.addEventListener('click', () => {
   bug.classList.add('fixed');
   found++;
   foundEl.textContent = found;
+  counter.classList.remove('waiting');
   counter.classList.remove('pop'); void counter.offsetWidth; counter.classList.add('pop');
   if (found < bugs.length) {
     showToast(fixMessages[found - 1] || `Bug #${found} fixed ✅`);
@@ -126,7 +130,26 @@ counter.addEventListener('click', () => {
 document.getElementById('win-close').addEventListener('click', () => { win.hidden = true; });
 document.getElementById('win-contact').addEventListener('click', () => { win.hidden = true; });
 
-setTimeout(() => showToast('🐞 5 bugs are hiding on this page. Can you find and fix them all?', 5000), 4500);
+// Start button: explain the game, light up the bugs briefly, scroll down
+document.getElementById('start-hunt').addEventListener('click', () => {
+  document.body.classList.add('hunting');
+  showToast('🐞 Look closely! Small bugs are crawling in each section. Click one to fix it.', 5000);
+  document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+  setTimeout(() => document.body.classList.remove('hunting'), 2500);
+});
+
+// Section hints: nudge visitors when a bug's section scrolls into view (until they've found 2)
+const hinted = new Set();
+const hintObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    const bug = entry.target.querySelector('.bug:not(.fixed)');
+    if (entry.isIntersecting && bug && found < 2 && !hinted.has(entry.target)) {
+      hinted.add(entry.target);
+      showToast('👀 Psst... there\'s a bug hiding somewhere in this section.');
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.section, footer').forEach(sec => { if (sec.querySelector('.bug')) hintObserver.observe(sec); });
 
 function confetti() {
   const colors = ['--pink', '--orange', '--yellow', '--teal', '--purple']
