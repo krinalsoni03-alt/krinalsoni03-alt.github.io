@@ -42,6 +42,26 @@ a { color: inherit; text-decoration: none; }
   --purple: #7209b7; --dark: #240046; --light: #fff5fb; --alt: #ffe5f1;
   --gold: #ff006e; --blue: #4361ee;
 }
+[data-theme="coral"] {
+  --pink: #ff6f61; --orange: #ffb4a2; --yellow: #ffe5d9; --teal: #00a896;
+  --purple: #028090; --dark: #05302f; --light: #fffaf7; --alt: #e6f6f4;
+  --gold: #f4a261; --blue: #028090;
+}
+[data-theme="lavender"] {
+  --pink: #b388eb; --orange: #f7aef8; --yellow: #fde2ff; --teal: #72ddf7;
+  --purple: #5a189a; --dark: #1d1135; --light: #faf7ff; --alt: #efe7fb;
+  --gold: #c77dff; --blue: #8093f1;
+}
+[data-theme="neon"] {
+  --pink: #f15bb5; --orange: #fee440; --yellow: #00f5d4; --teal: #00bbf9;
+  --purple: #9b5de5; --dark: #0b0b1a; --light: #f7f7ff; --alt: #ececff;
+  --gold: #f15bb5; --blue: #00bbf9;
+}
+[data-theme="royal"] {
+  --pink: #d4af37; --orange: #f1d77a; --yellow: #fff3c4; --teal: #4a6fa5;
+  --purple: #14213d; --dark: #0a1128; --light: #fdfbf5; --alt: #f3eedf;
+  --gold: #b8860b; --blue: #274c77;
+}
 body, .section-alt, .nav, .hero, footer { transition: background .5s, color .5s; }
 
 /* ===== THEME PICKER ===== */
@@ -50,6 +70,7 @@ body, .section-alt, .nav, .hero, footer { transition: background .5s, color .5s;
   display: flex; align-items: center; gap: .5rem;
   background: white; padding: .5rem .8rem; border-radius: 50px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, .2);
+  flex-wrap: wrap; justify-content: center; max-width: calc(100vw - 32px);
 }
 .theme-picker button {
   width: 28px; height: 28px; border-radius: 50%; cursor: pointer;
@@ -64,7 +85,7 @@ body, .section-alt, .nav, .hero, footer { transition: background .5s, color .5s;
   position: fixed; top: 0; left: 0; right: 0; z-index: 10;
   display: flex; justify-content: space-between; align-items: center;
   padding: 1rem 6%;
-  background: rgba(26, 16, 51, 0.85);
+  background: color-mix(in srgb, var(--dark) 85%, transparent);
   backdrop-filter: blur(10px);
   color: white;
 }
@@ -257,6 +278,8 @@ footer { text-align: center; padding: 2rem; background: var(--dark); color: whit
 
 /* ===== PHONES ===== */
 @media (max-width: 760px) {
+  .theme-picker { right: 16px; bottom: 16px; padding: .4rem .6rem; gap: .35rem; }
+  .theme-picker button { width: 24px; height: 24px; }
   .menu-btn { display: block; }
   .nav nav {
     display: none; position: absolute; top: 100%; left: 0; right: 0;
